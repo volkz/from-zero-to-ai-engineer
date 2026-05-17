@@ -2,7 +2,7 @@
 
 A 12-post field guide for engineers who have outgrown chat-window AI and want to ship like the assistant is real infrastructure: governed, versioned, verifiable.
 
-**Series by [David Gracia](https://delacruzd93@gmail.com)** — Principal Engineer, AI Engineering
+**Series by [David de la Cruz Gracia](https://delacruzd93@gmail.com)** — Principal Engineer, AI Engineering
 
 ---
 
