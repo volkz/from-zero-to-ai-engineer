@@ -1,0 +1,45 @@
+name: Lint AI Governance Config
+
+on:
+  pull_request:
+    paths:
+      - 'AGENTS.md'
+      - '**/.cursor/rules/**'
+      - '**/.claude/skills/**/SKILL.md'
+  push:
+    branches: [main]
+    paths:
+      - 'AGENTS.md'
+      - '**/.cursor/rules/**'
+      - '**/.claude/skills/**/SKILL.md'
+
+jobs:
+  lint-agents-md:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install agents-md-lint
+        run: npm install -g agents-md-lint
+      - name: Lint AGENTS.md
+        run: agents-md-lint AGENTS.md
+
+  validate-skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check SKILL.md frontmatter
+        run: |
+          failed=0
+          while IFS= read -r -d '' file; do
+            echo "Checking: $file"
+            for field in "^name:" "^description:" "^trigger:"; do
+              if ! grep -qP "$field" "$file"; then
+                echo "  MISSING: $field in $file"
+                failed=1
+              fi
+            done
+          done < <(find . -name 'SKILL.md' -not -path './node_modules/*' -print0)
+          exit $failed

@@ -1,0 +1,23 @@
+name: Lint AGENTS.md files
+
+on:
+  pull_request:
+    paths:
+      - '**/AGENTS.md'
+  push:
+    branches: [main]
+    paths:
+      - '**/AGENTS.md'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install agents-md-lint
+        run: npm install -g agents-md-lint
+      - name: Lint all AGENTS.md files
+        run: find . -name 'AGENTS.md' -not -path './node_modules/*' | xargs agents-md-lint

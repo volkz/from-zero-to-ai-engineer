@@ -1,0 +1,30 @@
+---
+description: Starter repo laws — always-loaded governance for every session in this project.
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Repo Laws
+
+## Package manager lock
+Never mix package managers. If AGENTS.md says yarn, use yarn. If npm, use npm. Never run the other one.
+
+## No console.log in production code
+Use the project's logger (see AGENTS.md for the import path). `console.log` is allowed in scripts and tests only.
+
+## Non-zero exit on test failure
+Every test command must produce a non-zero exit code when tests fail. Never swallow exits. Never claim "tests pass" without pasting the actual terminal output.
+
+## Verification before completion
+Before claiming any task complete:
+1. Run the relevant test command.
+2. Paste the actual output (not a summary).
+3. Confirm exit code 0.
+
+## Scope discipline
+Implement what was asked. Do not refactor adjacent code. Do not add features not requested. Do not improve error handling in code you're not touching. One logical change per session.
+
+---
+# Customize this file for your project
+# Replace the globs above with file-pattern-specific rules (e.g., "**/*.proto")
+# as you learn which patterns need enforcement. See Post 04 of the series for details.

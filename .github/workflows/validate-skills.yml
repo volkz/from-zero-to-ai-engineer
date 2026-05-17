@@ -1,0 +1,30 @@
+name: Validate SKILL.md files
+
+on:
+  pull_request:
+    paths:
+      - '**/SKILL.md'
+  push:
+    branches: [main]
+    paths:
+      - '**/SKILL.md'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check SKILL.md frontmatter
+        run: |
+          failed=0
+          while IFS= read -r -d '' file; do
+            echo "Checking: $file"
+            # Required frontmatter fields: name, description, trigger
+            for field in "^name:" "^description:" "^trigger:"; do
+              if ! grep -qP "$field" "$file"; then
+                echo "  MISSING frontmatter field matching: $field"
+                failed=1
+              fi
+            done
+          done < <(find . -name 'SKILL.md' -not -path './node_modules/*' -print0)
+          exit $failed

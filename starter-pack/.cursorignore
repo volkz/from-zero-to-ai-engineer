@@ -1,0 +1,32 @@
+# Secrets and credentials — never expose to AI
+.env
+.env.*
+*.secret.*
+*.pem
+*.key
+secrets/
+
+# Generated and build artifacts — high noise, low signal
+dist/
+build/
+.next/
+.nuxt/
+coverage/
+*.generated.ts
+*.generated.js
+
+# Large fixtures that exceed context budget usefully
+__fixtures__/large/
+test/fixtures/large/
+*.fixture.json
+
+# Dependency trees — always retrievable from package.json
+node_modules/
+.yarn/cache/
+vendor/
+
+# IDE and OS noise
+.DS_Store
+.idea/
+.vscode/settings.json
+*.swp
