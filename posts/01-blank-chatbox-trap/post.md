@@ -5,7 +5,7 @@
 > Part 1 of 12 in *From 0 to AI Engineer*.
 > → Next: [Post 2 — Why Prompts Aren't Programs](../02-prompts-arent-programs/post.md) (publishes same day)
 > First time here? This is the right place to start.
-> Companion code: [from-zero-to-ai-engineer](https://github.com/david-gracia/from-zero-to-ai-engineer)
+> Companion code: [from-zero-to-ai-engineer](https://github.com/volkz/from-zero-to-ai-engineer)
 
 ---
 

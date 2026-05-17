@@ -6,7 +6,7 @@
 > ← Previous: [Post 1 — The Blank Chatbox Trap](../01-blank-chatbox-trap/post.md)
 > → Next: [Post 3 — Your First AGENTS.md](../03-your-first-agents-md/post.md) (publishes in 2 weeks)
 > First time here? Start with Post 1 and Post 3 (the starter pack).
-> Companion code: [from-zero-to-ai-engineer](https://github.com/david-gracia/from-zero-to-ai-engineer)
+> Companion code: [from-zero-to-ai-engineer](https://github.com/volkz/from-zero-to-ai-engineer)
 
 ---
 

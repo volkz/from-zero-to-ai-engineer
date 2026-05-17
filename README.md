@@ -26,6 +26,8 @@ A 12-post field guide for engineers who have outgrown chat-window AI and want to
 
 **First time here?** Start with Post 01 and grab the [starter pack](starter-pack/).
 
+**GitHub:** https://github.com/volkz/from-zero-to-ai-engineer
+
 ---
 
 ## Starter Pack
