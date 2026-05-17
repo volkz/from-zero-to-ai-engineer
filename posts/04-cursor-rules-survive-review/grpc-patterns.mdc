@@ -1,0 +1,58 @@
+---
+description: >
+  gRPC error handling for NestJS — enforce RpcException, forbid HTTP exceptions in
+  any file touching a proto definition or microservice handler.
+globs: ["**/*.proto", "**/*.ts"]
+alwaysApply: false
+---
+
+# gRPC Patterns
+
+## Invariant
+
+All gRPC service methods **must** throw `RpcException` (from `@nestjs/microservices`).
+HTTP exception classes (`HttpException`, `BadRequestException`, `NotFoundException`, etc.)
+are **forbidden** inside gRPC code paths.
+
+## Correct
+
+```typescript
+import { RpcException } from '@nestjs/microservices';
+import { status } from '@grpc/grpc-js';
+
+async getUser(request: GetUserRequest): Promise<GetUserResponse> {
+  const user = await this.userRepository.find(request.id);
+  if (!user) {
+    throw new RpcException({
+      code: status.NOT_FOUND,
+      message: `User ${request.id} not found`,
+    });
+  }
+  return { user };
+}
+```
+
+## Forbidden
+
+```typescript
+// ❌ HTTP exception in a gRPC handler — caller gets UNKNOWN (2) on the wire
+throw new NotFoundException(`User ${id} not found`);
+
+// ❌ Raw HTTP status code — means nothing to a gRPC client
+throw new HttpException('Bad input', 400);
+
+// ❌ Bare Error — loses gRPC status enum entirely
+throw new Error('User not found');
+```
+
+## Rationale
+
+gRPC clients read `status.code`, not HTTP status codes. Throwing an HTTP exception in
+a gRPC handler produces an `UNKNOWN (2)` status to the caller, discarding all structured
+error data. `RpcException` wrapping a `@grpc/grpc-js` status enum maps correctly to what
+the generated client expects.
+
+## Proto contracts
+
+When adding a new RPC method to a `.proto` file, implement the corresponding service
+handler in the same PR. Committed stubs without handlers break generated clients.
