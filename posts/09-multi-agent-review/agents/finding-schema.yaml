@@ -1,0 +1,50 @@
+# Shared finding schema for all review agents
+# Every agent must output findings in this format.
+# Validate with: ajv validate -s finding-schema.yaml -d <finding.json>
+
+type: object
+required: [agent, severity, category, file, finding, evidence, suggestion]
+properties:
+  agent:
+    type: string
+    enum: [architecture, security, performance, logic, clean-code]
+    description: Which reviewer agent produced this finding.
+
+  severity:
+    type: string
+    enum: [critical, high, medium, low]
+    description: >
+      critical: must fix before merge (security breach, data loss, broken contract).
+      high: strongly recommended fix (logic error, perf regression, security concern).
+      medium: team-standard deviation (code quality, naming, pattern inconsistency).
+      low: suggestion (style, minor improvement, future-consideration).
+
+  category:
+    type: string
+    description: >
+      Short label for the finding type. Examples: auth-bypass, n+1-query,
+      missing-null-check, undefined-behavior, naming-violation.
+
+  file:
+    type: string
+    description: Relative path to the file containing the finding.
+
+  line:
+    type: integer
+    description: Line number (approximate). Optional but strongly preferred.
+
+  finding:
+    type: string
+    description: One sentence describing what is wrong and why it matters.
+
+  evidence:
+    type: string
+    description: >
+      The specific code or behavior that supports the finding.
+      Quote the relevant line(s) or describe the observed behavior precisely.
+
+  suggestion:
+    type: string
+    description: >
+      Concrete recommendation: the fix, the pattern to apply, or the question
+      the reviewer cannot answer but the human must resolve.

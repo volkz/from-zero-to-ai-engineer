@@ -1,0 +1,38 @@
+# CONTRACT Envelope — Verification Artifact Template
+#
+# Attach one of these per task or per logical change.
+# The agent fills in command, expected, and actual.
+# A task is NOT complete until STATUS is PASS and actual matches expected.
+# This file is the immutable record of what ran and what it proved.
+
+task: "<one-sentence description of what was implemented>"
+timestamp: "YYYY-MM-DDTHH:MM:SSZ"
+
+# The exact command that was run — no paraphrasing, no "I ran the tests"
+command: "yarn test --testPathPattern=\"<path>\" --passWithNoTests 2>&1"
+
+# What a passing run looks like — describe the key output signal
+expected: "Test Suites: N passed, N total — Tests: N passed, N total — exit 0"
+
+# What actually happened — paste or transcribe the real runner output
+actual: |
+  PASTE REAL OUTPUT HERE
+  Do not summarize. Do not paraphrase. Paste the stdout.
+
+# PASS only if actual matches expected AND exit code was 0
+# FAIL if tests failed, process errored, or output was not verified
+STATUS: PASS | FAIL
+
+# Optional: confidence score 0-100
+# 100 = tests are comprehensive and the scenario is fully covered
+# 70  = tests cover the happy path; edge cases are not yet tested
+# 50  = smoke test only; behavior under load or error conditions is untested
+CONFIDENCE: 0-100
+
+# Optional: edge cases verified in this run
+SCENARIOS:
+  - name: "<scenario name>"
+    input: "<input description>"
+    expected_output: "<expected output>"
+    actual_output: "<actual output>"
+    result: PASS | FAIL

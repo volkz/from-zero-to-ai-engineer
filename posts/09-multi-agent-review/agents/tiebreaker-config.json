@@ -1,0 +1,42 @@
+{
+  "_comment": "Deterministic tie-breaker rules for multi-agent review conflicts.",
+  "_usage": "When two agents disagree on severity or action, apply the highest-priority matching rule.",
+
+  "rules": [
+    {
+      "id": "security-always-wins",
+      "description": "Security agent findings of critical or high severity are never downgraded by other agents.",
+      "condition": {
+        "agent": "security",
+        "severity": ["critical", "high"]
+      },
+      "action": "preserve — do not downgrade, do not suppress",
+      "rationale": "Security concerns in regulated environments are non-negotiable regardless of style or architecture preferences."
+    },
+    {
+      "id": "style-vs-logic",
+      "description": "When clean-code and logic agents conflict on the same finding, logic wins.",
+      "condition": {
+        "agents_in_conflict": ["logic", "clean-code"],
+        "same_file_and_line": true
+      },
+      "action": "use logic agent's severity and suggestion",
+      "rationale": "A logic error that happens to be readable is still a logic error. Style concerns are secondary."
+    },
+    {
+      "id": "performance-vs-architecture",
+      "description": "When performance and architecture agents conflict, defer to architecture for design decisions, performance for measurable regressions.",
+      "condition": {
+        "agents_in_conflict": ["performance", "architecture"]
+      },
+      "action": "if finding includes a measurable metric (query count, latency), use performance; otherwise use architecture",
+      "rationale": "Premature optimization is architecture's domain; confirmed regression is performance's domain."
+    }
+  ],
+
+  "false_positive_budget": {
+    "target_rate": "≤15%",
+    "retune_trigger": "If any agent's false-positive rate exceeds 20% over a two-week period, review and narrow its charter.",
+    "measurement": "Track findings marked 'false positive' by the human reviewer in each PR."
+  }
+}
