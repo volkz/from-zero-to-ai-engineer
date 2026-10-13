@@ -5,25 +5,22 @@ Both configurations point to the same `server.js`; only the config file location
 
 ---
 
-## Claude Code — `.claude/mcp_servers.json`
+## Claude Code — `.mcp.json` at the repo root
 
 ```json
 {
   "mcpServers": {
     "test-runner": {
       "command": "node",
-      "args": ["posts/07-wiring-an-mcp-tool/mcp/server.js"],
-      "cwd": "${workspaceRoot}"
+      "args": ["${CLAUDE_PROJECT_DIR:-.}/posts/07-wiring-an-mcp-tool/mcp/server.js"]
     }
   }
 }
 ```
 
-Or pass via the `--mcp-config` flag:
-
-```bash
-claude --mcp-config .claude/mcp_servers.json
-```
+Or add it from the CLI: `claude mcp add --scope project test-runner -- node posts/07-wiring-an-mcp-tool/mcp/server.js`.
+Note that `.claude/settings.json` and `.claude/mcp_servers.json` are not read for MCP servers.
+Verify with `/mcp` or `claude mcp list`.
 
 ---
 
@@ -59,7 +56,7 @@ Then test it:
 Run the tests for src/users/users.service.ts
 ```
 
-Expected: the model calls the tool, the tool runs `yarn test --testPathPattern="src/users/users.service.ts"`,
+Expected: the model calls the tool, the tool runs `yarn test --testPathPatterns src/users/users.service.ts`,
 and returns the real test runner output — pass or fail.
 
 ---

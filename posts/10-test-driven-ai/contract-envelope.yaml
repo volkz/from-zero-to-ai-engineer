@@ -9,7 +9,7 @@ task: "<one-sentence description of what was implemented>"
 timestamp: "YYYY-MM-DDTHH:MM:SSZ"
 
 # The exact command that was run — no paraphrasing, no "I ran the tests"
-command: "yarn test --testPathPattern=\"<path>\" --passWithNoTests 2>&1"
+command: "yarn test --testPathPatterns=\"<path>\" --passWithNoTests 2>&1"
 
 # What a passing run looks like — describe the key output signal
 expected: "Test Suites: N passed, N total — Tests: N passed, N total — exit 0"

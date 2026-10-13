@@ -4,7 +4,6 @@ description: >
   Fires as part of a multi-agent review pass. Reviews a code diff for security
   vulnerabilities: authentication bypasses, input validation gaps, injection risks,
   data privacy violations, insecure defaults. Outputs structured findings only.
-trigger: semantic
 ---
 
 # Security Reviewer

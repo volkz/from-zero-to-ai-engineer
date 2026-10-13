@@ -13,7 +13,7 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { execSync } from 'child_process';
+import { execFileSync } from 'child_process';
 import { existsSync } from 'fs';
 import path from 'path';
 
@@ -59,11 +59,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
   const { path: sourcePath } = args;
 
-  // Security: reject paths that escape the project root
+  // Security: allow-list characters, then reject paths that escape the project root
   const resolved = path.resolve(PROJECT_ROOT, sourcePath);
-  if (!resolved.startsWith(PROJECT_ROOT + path.sep) && resolved !== PROJECT_ROOT) {
+  if (
+    !/^[A-Za-z0-9_\-./]+$/.test(sourcePath) ||
+    (!resolved.startsWith(PROJECT_ROOT + path.sep) && resolved !== PROJECT_ROOT)
+  ) {
     return {
-      content: [{ type: 'text', text: 'Error: path traversal rejected' }],
+      content: [{ type: 'text', text: 'Error: path rejected' }],
       isError: true,
     };
   }
@@ -76,9 +79,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   }
 
   try {
-    const output = execSync(
-      `yarn test --testPathPattern="${sourcePath}" --passWithNoTests 2>&1`,
-      { timeout: 60_000, cwd: PROJECT_ROOT },
+    // No shell: sourcePath is a single argv entry, never interpolated into a command string.
+    // --testPathPatterns is the Jest 30 spelling (Jest 29 and earlier: --testPathPattern).
+    const output = execFileSync(
+      'yarn',
+      ['test', '--testPathPatterns', sourcePath, '--passWithNoTests'],
+      { timeout: 60_000, cwd: PROJECT_ROOT, stdio: ['ignore', 'pipe', 'pipe'] },
     ).toString();
     return { content: [{ type: 'text', text: output }] };
   } catch (err) {

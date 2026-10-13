@@ -1,7 +1,6 @@
 ---
 name: plan-loop
 description: "Runs the Plan → Verify → Implement loop for any non-trivial coding task. Fires on: 'implement', 'build', 'add feature', 'refactor', 'create', when the task involves more than 2 files or is estimated at more than 30 minutes."
-trigger: semantic
 version: 1.0.0
 owner: "[FILL IN]"
 last_reviewed: 2026-05-17

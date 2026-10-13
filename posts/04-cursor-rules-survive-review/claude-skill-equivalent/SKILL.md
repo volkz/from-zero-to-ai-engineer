@@ -4,7 +4,6 @@ description: >
   Fires when writing, editing, or reviewing a gRPC service method, proto definition, or
   NestJS microservice handler. Provides the correct RpcException pattern and flags HTTP
   exception anti-patterns.
-trigger: semantic
 ---
 
 # gRPC Error Handling

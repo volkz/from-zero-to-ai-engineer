@@ -5,7 +5,6 @@ description: >
   controller, or handler. Covers HTTP layer (AppException pattern), gRPC layer
   (RpcException + status enum), and shared domain errors. Includes what to avoid:
   silent catches, bare Error throws, HTTP exceptions in gRPC code paths.
-trigger: semantic
 ---
 
 # Error Handling

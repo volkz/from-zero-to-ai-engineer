@@ -7,7 +7,7 @@
 
 - **Name:** [FILL IN — e.g., "payments-api"]
 - **Type:** [FILL IN — e.g., "REST API / NestJS / TypeScript"]
-- **Runtime:** [FILL IN — e.g., "Node 20.x"]
+- **Runtime:** [FILL IN — e.g., "Node 22"]
 - **Package manager:** [FILL IN — "yarn" | "npm" | "pnpm" — pick one, document it here]
 
 ## Exact commands

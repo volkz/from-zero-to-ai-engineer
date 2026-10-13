@@ -7,7 +7,7 @@
 
 - **Name:** [FILL IN — e.g., "my-api"]
 - **Type:** [FILL IN — e.g., "REST API / NestJS / TypeScript"]
-- **Runtime:** [FILL IN — e.g., Node 20, Python 3.12]
+- **Runtime:** [FILL IN — e.g., Node 22, Python 3.12]
 - **Package manager:** [FILL IN — e.g., "yarn" or "npm" or "pnpm" — pick one, never mix]
 
 ## Exact commands

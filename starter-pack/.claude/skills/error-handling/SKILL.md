@@ -1,7 +1,6 @@
 ---
 name: error-handling
 description: "Applies project error-handling conventions when the user asks to fix an error, handle an exception, or add error handling to a function. Fires on: 'handle this error', 'add error handling', 'what should I throw here', 'catch this', 'error boundary'."
-trigger: semantic
 version: 1.0.0
 owner: "[FILL IN — your team or handle]"
 last_reviewed: 2026-05-17

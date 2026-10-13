@@ -28,7 +28,7 @@ One sentence: what will be different when this is done?
 <!-- What must pass for this to be complete? Be concrete: paste the exact
      test command, the lint check, the screenshot criterion. -->
 
-- `yarn test --testPathPattern="<file>" --passWithNoTests`
+- `yarn test --testPathPatterns="<file>" --passWithNoTests`
 - `yarn lint src/<path>`
 
 ## Definition of done
